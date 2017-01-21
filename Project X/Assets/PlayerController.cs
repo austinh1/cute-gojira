@@ -81,9 +81,21 @@ public class PlayerController : MonoBehaviour
     {
         switch (collision.collider.tag)
         {
-            case "Enemy":
-                Destroy(this);
-                break;
+        case "Enemy":
+            Destroy(this);
+            break;
+		case "Floor":
+			horizontalForce = 100;
+			break;
         }
     }
+	void OnCollisionExit2D(Collision2D collision){
+		switch (collision.collider.tag)
+		{
+		case "Floor":
+			horizontalForce = 20;
+			break;
+		}
+	}
+
 }
