@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Mathf.Abs(body.velocity.x) < speed)
         {
-            body.AddForce(new Vector2(horizontalForce * joystickhorizontalAxis, 0));
+            body.AddForce(new Vector2(horizontalForce * horizontalAxis, 0));
         }
         else
         {
