@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RightLeftBullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     public float speed = 10;
+    public bool isRight = true;
+
     Rigidbody2D body;
 	
 	void Start ()
@@ -14,6 +16,7 @@ public class RightLeftBullet : MonoBehaviour
 	
 	void Update ()
     {
-        body.velocity = new Vector2(-speed, 0);	
+        var sp = isRight ? speed : -speed;
+        body.velocity = new Vector2(sp, 0);	
 	}
 }

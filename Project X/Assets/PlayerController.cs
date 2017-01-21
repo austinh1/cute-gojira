@@ -7,11 +7,15 @@ public class PlayerController : MonoBehaviour
     public float upwardForce = 10;
     public float horizontalForce = 5;
     public float speed = 10;
+    public float attackInterval = 3;
+    public GameObject bullet;
 
     bool flyUp;
+    bool attack;
     float joystickhorizontalAxis;
     float keyboardHorizontalAxis;
     float horizontalAxis;
+    float attackTimer = 0;
 
     Rigidbody2D body;
 
@@ -24,9 +28,19 @@ public class PlayerController : MonoBehaviour
     {
         GetInput();
 
+        if (attack && attackTimer < 0)
+        {
+            var b = Instantiate(bullet);
+            b.transform.position = transform.position;
+
+            attackTimer = attackInterval;
+        }
+
         HorizontalMovement();
 
         VerticalMovement();
+
+        attackTimer -= Time.deltaTime;
     }
 
     void HorizontalMovement()
@@ -65,7 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         joystickhorizontalAxis = Input.GetAxis("Joystick Horizontal");
         keyboardHorizontalAxis = Input.GetAxis("Keyboard Horizontal");
-
+        
         horizontalAxis = 0;
 
         if (keyboardHorizontalAxis > 0 || keyboardHorizontalAxis < 0)
@@ -75,6 +89,7 @@ public class PlayerController : MonoBehaviour
             horizontalAxis = joystickhorizontalAxis;
 
         flyUp = Input.GetButton("Joystick Vertical") || Input.GetButton("Keyboard Vertical");
+        attack = Input.GetButton("Joystick Attack");
     }
 
     void OnCollisionEnter2D(Collision2D collision)
